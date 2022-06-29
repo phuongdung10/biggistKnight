@@ -3,16 +3,17 @@ const VISITED = 'VISITED';
 const CURRENT = 'CURRENT';
 const UNVISITABLE = 'UNVISITABLE';
 const VISITABLE = 'VISITABLE'
+const VISITABLE1 = 'VISITABLE1'
 const INITIAL_BOARD_SIZE = 8;
 const INITIAL_BOARD =
-  [[VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
-  [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
-  [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
-  [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
-  [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
-  [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
-  [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
-  [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],];
+  [[VISITABLE1, VISITABLE, VISITABLE1, VISITABLE, VISITABLE1, VISITABLE, VISITABLE1, VISITABLE],
+  [VISITABLE, VISITABLE1, VISITABLE, VISITABLE1, VISITABLE, VISITABLE1, VISITABLE, VISITABLE1],
+  [VISITABLE1, VISITABLE, VISITABLE1, VISITABLE, VISITABLE1, VISITABLE, VISITABLE1, VISITABLE],
+  [VISITABLE, VISITABLE1, VISITABLE, VISITABLE1, VISITABLE, VISITABLE1, VISITABLE, VISITABLE1],
+  [VISITABLE1, VISITABLE, VISITABLE1, VISITABLE, VISITABLE1, VISITABLE, VISITABLE1, VISITABLE],
+  [VISITABLE, VISITABLE1, VISITABLE, VISITABLE1, VISITABLE, VISITABLE1, VISITABLE, VISITABLE1],
+  [VISITABLE1, VISITABLE, VISITABLE1, VISITABLE, VISITABLE1, VISITABLE, VISITABLE1, VISITABLE],
+  [VISITABLE, VISITABLE1, VISITABLE, VISITABLE1, VISITABLE, VISITABLE1, VISITABLE, VISITABLE1]];
 
 
 function KnightsTour() {
@@ -57,7 +58,7 @@ function KnightsTour() {
     // remove previous successors
     for (let i = 0; i < boardSize; i++) {
       for (let j = 0; j < boardSize; j++) {
-        if (board[i][j] === VISITABLE) {
+        if (board[i][j] === VISITABLE || board[i][j] === VISITABLE1) {
           board[i][j] = UNVISITABLE
         }
       }
@@ -65,18 +66,23 @@ function KnightsTour() {
     // add new successors to board
     successors.forEach(successor => {
       board[successor[0]][successor[1]] = VISITABLE;
+      console.log(board)
     });
   }
 
   const makeMove = (r, c) => {
-    if (board[r][c] === VISITABLE) {
+    let successorss 
+    if (board[r][c] === VISITABLE || board[r][c] === VISITABLE1) {
       if (row != null && col != null)
         board[row][col] = VISITED;
       board[r][c] = CURRENT;
       const successors = successorFunction(r, c);
+      console.log(successors);
       applySuccessors(successors);
       setRow(r);
       setCol(c);
+      setTimeout(successorss = successors(Math.floor(Math.random* successorFunction(r,c))), 1000)
+      makeMove(successorss())
     }
   }
 
@@ -101,9 +107,12 @@ function KnightsTour() {
                 border: '1px black solid',
               };
               if (state === VISITABLE) style.backgroundColor = '#779556';
-              if (state === VISITABLE) style.backgroundColor = 'green';
+              if (state === VISITABLE1) style.backgroundColor = ' #ebecd0';
               if (state === UNVISITABLE) style.backgroundColor = 'white';
-              if (state === CURRENT) style.backgroundColor = 'lightgreen';
+              if (state === CURRENT) style.backgroundColor = 'PINK';
+              if (state === CURRENT) style.backgroundImage = "url('/assets/knight_b.png')";
+              if (state === CURRENT) style.backgroundRepeat = "no-repeat";
+              if (state === CURRENT) style.backgroundPosition = "center center";
               if (state === VISITED) style.backgroundColor = 'grey';
               return (
                 <div
@@ -117,14 +126,8 @@ function KnightsTour() {
         }
       </div>
 
-      board size =
-      <input
-        type='number'
-        min={3}
-        max={10}
-        value={boardSize}
-        onChange={e => resetBoard(e.target.value)}
-      />
+  
+     
 
     </div>
   );
