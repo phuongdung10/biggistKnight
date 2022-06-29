@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="container">
 
-      <KnightsTourInfor />
+      {/* <KnightsTourInfor /> */}
       <KnightsTour />
 
     </div>
