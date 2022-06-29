@@ -4,15 +4,15 @@ const CURRENT = 'CURRENT';
 const UNVISITABLE = 'UNVISITABLE';
 const VISITABLE = 'VISITABLE'
 const INITIAL_BOARD_SIZE = 8;
-const INITIAL_BOARD = 
-[[VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
-[VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
-                       [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
-                       [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
-                       [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
-                       [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
-                       [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
-                       [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],];
+const INITIAL_BOARD =
+  [[VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
+  [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
+  [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
+  [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
+  [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
+  [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
+  [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],
+  [VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE, VISITABLE],];
 
 
 function KnightsTour() {
@@ -70,7 +70,7 @@ function KnightsTour() {
 
   const makeMove = (r, c) => {
     if (board[r][c] === VISITABLE) {
-      if (row != null && col != null) 
+      if (row != null && col != null)
         board[row][col] = VISITED;
       board[r][c] = CURRENT;
       const successors = successorFunction(r, c);
@@ -89,25 +89,26 @@ function KnightsTour() {
           gridTemplateColumns: `repeat(${boardSize}, 1fr)`,
           border: '1px black solid',
           gap: 0,
-        }}  
+        }}
       >
         {
           board.map((row, i) => {
             return row.map((state, j) => {
               let key = `${i}${j}`;
-              let style = { 
-                paddingTop: '100%', 
+              let style = {
+                paddingTop: '100%',
                 margin: 0,
                 border: '1px black solid',
               };
+              if (state === VISITABLE) style.backgroundColor = '#779556';
               if (state === VISITABLE) style.backgroundColor = 'green';
               if (state === UNVISITABLE) style.backgroundColor = 'white';
               if (state === CURRENT) style.backgroundColor = 'lightgreen';
               if (state === VISITED) style.backgroundColor = 'grey';
               return (
-                <div 
-                  key={key} 
-                  style={style} 
+                <div
+                  key={key}
+                  style={style}
                   onClick={() => makeMove(i, j)}>
                 </div>
               )
@@ -116,13 +117,13 @@ function KnightsTour() {
         }
       </div>
 
-      board size = 
-      <input 
+      board size =
+      <input
         type='number'
         min={3}
-        max={10} 
-        value={boardSize} 
-        onChange={e => resetBoard(e.target.value) }
+        max={10}
+        value={boardSize}
+        onChange={e => resetBoard(e.target.value)}
       />
 
     </div>
